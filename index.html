@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>reddit inbox</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="src/style.css">
+</head>
+
+<body>
+  <a href="#" class="right" id="quit">
+    <i class="material-icons red white-text right">clear</i>
+  </a>
+  <a id="minimize" href="#">
+    <i class="material-icons right green white-text">remove</i>
+  </a>
+  <nav>
+    <div class="nav-wrapper white">
+      <a href="#" class="brand-logo center orange-text">ReddiTray</a>
+    </div>
+  </nav>
+</body>
+
+<script>
+  window.$ = window.jQuery = require("./src/jquery-3.1.0.min.js");
+  var app = require("./src/app.js");
+</script>
+
+</html>

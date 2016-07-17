@@ -1,0 +1,8 @@
+{
+  "name": "ReddiTray",
+  "version": "0.1.0",
+  "main": "main.js",
+  "dependencies": {
+    "menubar": "^5.0.0"
+  }
+}

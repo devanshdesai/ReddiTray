@@ -1,0 +1,11 @@
+#quit {
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+}
+#minimize {
+    width: 45px;
+    height: 45px;
+    margin-right: -1px;
+    font-size: 20px;
+}
