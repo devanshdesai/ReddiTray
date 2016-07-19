@@ -21,11 +21,20 @@
   <a id="minimize" href="#">
     <i class="material-icons green white-text">remove</i>
   </a>
+
+  <div class="container center">
+    <br><br>
+    <div id="authenticate" class="blue darken-1 waves-effect waves-light btn-large">
+      <i class="material-icons left">launch</i>Sign In to Reddit
+    </div>
+  </div>
 </body>
 
-<script>
-  window.$ = window.jQuery = require("./src/jquery-3.1.0.min.js");
-  var app = require("./src/app.js");
-</script>
+
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src="src/jquery-3.1.0.min.js"></script>
+<script src="src/app.js""></script>
+<script src="src/materialize.min.js"></script>
+<script>if (window.module) module = window.module;</script>
 
 </html>

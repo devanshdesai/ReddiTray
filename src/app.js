@@ -1,27 +1,26 @@
 var ipc = require("electron").ipcRenderer,
-    Snoocore = require("snoocore");
+    Snoocore = require("snoocore"),
+    reddit = require("./reddit"),
+    persist = require("node-persist");
+const {shell} = require("electron");
 
-var reddit = new Snoocore({
-      userAgent: 'test@documentation',
-      oauth: {
-        type: 'implicit',
-        mobile: true,
-        key: 'tj19dKrZ6PG5UA',
-        redirectUri: 'http://localhost.com/',
-        scope: ["identity", "privatemessages"]
-      }
-  });
-  
+persist.initSync({
+	dir: process.resourcesPath + "/persist"
+});
+
 $(document).ready(function () {
-  
 
 });
 
 
 $("#quit").click(function() {
   ipc.send("quit");
-})
+});
 
 $("#minimize").click(function() {
     ipc.send("minimize");
-})
+});
+
+$("#authenticate").click(function() {
+  reddit.helloworld();
+});

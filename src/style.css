@@ -3,9 +3,11 @@
     height: 25px;
     font-size: 20px;
     right: 0px;
+    top: 0;
     position: absolute;
 }
 #minimize {
+    top: 0;
     width: 25px;
     height: 25px;
     font-size: 20px;
@@ -13,7 +15,7 @@
     right: 25px;
     position: absolute;
 }
-nav {
-    top: 0;
-    position: absolute;
+#authenticate {
+    position: relative;
+    margin-top: 45%;
 }
