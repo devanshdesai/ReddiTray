@@ -6,6 +6,7 @@
     top: 0;
     position: absolute;
 }
+
 #minimize {
     top: 0;
     width: 25px;
@@ -15,6 +16,7 @@
     right: 25px;
     position: absolute;
 }
+
 #authenticate {
     position: relative;
     margin-top: 45%;

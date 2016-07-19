@@ -5,10 +5,10 @@ const {
     shell
 } = require("electron");
 
-exports.ready = new events.EventEmitter();
+var exports = new events.EventEmitter();
 
 persist.initSync({
-	dir: process.resourcesPath + "/persist"
+    dir: process.resourcesPath + "/persist"
 });
 
 var reddit = new Snoocore({
@@ -22,6 +22,23 @@ var reddit = new Snoocore({
     }
 });
 
-exports.helloworld = function() {
-    console.log("helloworld");
+exports.authenticate = function(fn) {
+    var state = Math.random();
+    var authUrl = reddit.getAuthUrl(state);
+    shell.openExternal(authUrl);
+    servWait(function(query) {
+        if (query.state == state) {
+            reddit.auth(query.code).then(function() {
+                var tokens = {
+                    token: reddit.getAccessToken(),
+                    refresh: reddit.getRefreshToken()
+                };
+                persist.setItem("tokens", tokens);
+                signIn(tokens);
+                fn(true);
+            });
+        } else {
+            fn(false);
+        }
+    });
 };

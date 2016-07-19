@@ -1,14 +1,12 @@
 var ipc = require("electron").ipcRenderer,
-    Snoocore = require("snoocore"),
-    reddit = require("./reddit"),
-    persist = require("node-persist");
-const {shell} = require("electron");
+  Snoocore = require("snoocore"),
+  persist = require("node-persist");
 
 persist.initSync({
-	dir: process.resourcesPath + "/persist"
+  dir: process.resourcesPath + "/persist"
 });
 
-$(document).ready(function () {
+$(document).ready(function() {
 
 });
 
@@ -18,9 +16,13 @@ $("#quit").click(function() {
 });
 
 $("#minimize").click(function() {
-    ipc.send("minimize");
+  ipc.send("minimize");
 });
 
 $("#authenticate").click(function() {
-  reddit.helloworld();
+  reddit.authenticate(function(success) {
+					if (success) {
+						console.log("hello");
+					}
+				});
 });

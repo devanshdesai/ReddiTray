@@ -16,10 +16,13 @@ var menubar = require('menubar'),
 mb.on('ready', function ready() {
 	console.log('app is ready')
 	var tray = mb.tray;
-	const contextMenu = Menu.buildFromTemplate([
-			{label: 'Sync frequency', role: 'sync'},
-			{label: 'Quit', role: 'quit'},
-	]);
+	const contextMenu = Menu.buildFromTemplate([{
+		label: 'Sync frequency',
+		role: 'sync'
+	}, {
+		label: 'Quit',
+		role: 'quit'
+	}, ]);
 	tray.setContextMenu(contextMenu);
 });
 
