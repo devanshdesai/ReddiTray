@@ -1,5 +1,14 @@
 body {
-    padding-top: 75px;
+    padding-top: 90px;
+}
+
+#refresh {
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+    left: 2.5px;
+    top: 0;
+    position: absolute;
 }
 
 #quit {
@@ -37,10 +46,18 @@ body {
 }
 
 #nav {
-    font-size: 2em;
+    font-size: 1.5em;
     color: orange;
 }
 
 .nav {
     background-color: #f2f2f2;
+}
+
+#username {
+    color: #3F729B;
+}
+
+#karma {
+    color: #3F729B;
 }

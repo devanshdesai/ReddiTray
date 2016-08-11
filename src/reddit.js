@@ -28,7 +28,7 @@ module.exports = {
             }
         });
     },
-    checkAuth: function(output) {
+    checkAuthentication: function(output) {
         var tokens = persist.getItem("tokens");
         if (tokens !== undefined && tokens.token !== "" && tokens.refresh !== "") {
             signIn(tokens);
@@ -37,7 +37,7 @@ module.exports = {
             output(false);
         }
     },
-    getMe: function(output) {
+    getUserInfo: function(output) {
         reddit("/api/v1/me").get().then(function(val) {
             fn({
                 name: val.name,
@@ -49,13 +49,23 @@ module.exports = {
             });
         });
     },
-    getMail: function(output) {
+    getMessages: function(start, limit, output) {
         reddit("/message/inbox").get({
-            limit: lim,
+            limit: limit,
             count: start
         }).then(function(mail) {
-            var filtered = filterMail(mail);
-            output(filtered);
+            //var filtered = filterMail(mail);
+            output(mail);
+        });
+    },
+    markAllAsRead: function(output) {
+        reddit("/api/read_all_messages").post().then(output);
+    },
+    signOut: function() {
+        reddit.deauth();
+        persist.setItem("tokens", {
+            token: "",
+            refresh: ""
         });
     }
 };
@@ -88,28 +98,6 @@ reddit.on("access_token_expired", function(responseError) {
     }
 });
 
-
-/*exports.authenticate = function(fn) {
-    var state = Math.random();
-    var authUrl = reddit.getAuthUrl(state);
-    shell.openExternal(authUrl);
-    servWait(function(query) {
-        if (query.state == state) {
-            reddit.auth(query.code).then(function() {
-                var tokens = {
-                    token: reddit.getAccessToken(),
-                    refresh: reddit.getRefreshToken()
-                };
-                persist.setItem("tokens", tokens);
-                signIn(tokens);
-                fn(true);
-            });
-        } else {
-            fn(false);
-        }
-    });
-};*/
-
 var servWait = function(output) {
     var app = express();
     var server = app.listen(8123);
@@ -119,18 +107,12 @@ var servWait = function(output) {
         app = null;
     });
 };
-/*
-function checkAuth() {
-    var tokens = persist.getItem("tokens");
-    if (tokens !== undefined && tokens.token !== "" && tokens.refresh !== "") {
-        signIn(tokens);
-        return true;
-    } else {
-        return false;
-    }
-};
-*/
+
 var signIn = function(tokens) {
     reddit.setAccessToken(tokens.token);
     reddit.setRefreshToken(tokens.refresh);
 };
+
+setTimeout(function() {
+    module.exports.ready.emit("ready");
+}, 500);
