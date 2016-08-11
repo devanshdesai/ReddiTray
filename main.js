@@ -9,7 +9,7 @@ var menubar = require('menubar'),
 		width: 300,
 		height: 500,
 		tooltip: "You have 0 unread messages.",
-		icon: "src/img/default.png"
+		icon: "./src/img/default.png"
 	}),
 	ipc = require("electron").ipcMain;
 

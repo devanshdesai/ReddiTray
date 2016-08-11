@@ -1,8 +1,12 @@
+body {
+    padding-top: 75px;
+}
+
 #quit {
     width: 25px;
     height: 25px;
     font-size: 20px;
-    right: 0px;
+    right: 12.5px;
     top: 0;
     position: absolute;
 }
@@ -13,11 +17,30 @@
     height: 25px;
     font-size: 20px;
     margin-right: -2px;
-    right: 25px;
+    right: 50px;
     position: absolute;
+}
+
+.window_buttons {
+    border-color: transparent;
+    border-radius: 0px;
+    background-color: transparent;
 }
 
 #authenticate {
     position: relative;
-    margin-top: 45%;
+    margin-top: 10%;
+    margin-left: 27.5%;
+    width: 45%;
+    margin-right: 27.5%:
+    text-align: center;
+}
+
+#nav {
+    font-size: 2em;
+    color: orange;
+}
+
+.nav {
+    background-color: #f2f2f2;
 }

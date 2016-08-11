@@ -2,45 +2,52 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <title>Reddit Inbox</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="src/style.css">
+    <meta charset="utf-8">
+    <title>Reddit Inbox</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="src/style.css">
 </head>
 
 <body>
-  <nav>
-    <div class="nav-wrapper white">
-      <a href="#" class="brand-logo center orange-text">ReddiTray</a>
-    </div>
-  </nav>
-  <a href="#" id="quit">
-    <i class="material-icons red darken-3 white-text right">clear</i>
-  </a>
-  <a id="minimize" href="#">
-    <i class="material-icons green white-text">remove</i>
-  </a>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div id="nav" class="container-fluid text-center navbar-text">
+            ReddiTray
+            <a id="minimize" href="#">
+                <button type="button" class="btn btn-default window_buttons btn-sm"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+            </a>
+            <a href="#" id="quit">
+                <button type="button" class="btn btn-default window_buttons btn-sm"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+            </a>
+        </div>
+    </nav>
 
-  <div class="container center">
-    <br><br>
-    <div id="authenticate" class="blue darken-1 waves-effect waves-light btn-large">
-      <i class="material-icons left">launch</i>Sign In to Reddit
+    <div class="container">
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <h4 class="text-center">Welcome to ReddiTray!<br>Please sign in.</h4>
+        </div>
+        <div class="row">
+            <button id="authenticate" type="button" class="btn btn-primary btn-large"><span class="glyphicon glyphicon-new-windowPrimary" aria-hidden="true"></span>Sign in to Reddit</button>
+        </div>
     </div>
-  </div>
 </body>
 
 
 <script>
-  if (typeof module === 'object') {
-    window.module = module;
-    module = undefined;
-  }
+    if (typeof module === 'object') {
+        window.module = module;
+        module = undefined;
+    }
 </script>
-<script>window.$ = window.jQuery = require("jquery");</script>
+<script src="src/jquery-3.1.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="src/reddit.js"></script>
-<script src="src/app.js" "></script>
-<script src="src/materialize.min.js "></script>
-<script>if (window.module) module = window.module;</script>
+<script src="src/app.js"></script>
+
+<script>
+    if (window.module) module = window.module;
+</script>
 
 </html>

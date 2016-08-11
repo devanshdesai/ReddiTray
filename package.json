@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "main": "main.js",
   "dependencies": {
+    "express": "^4.14.0",
     "menubar": "^5.0.0"
+  },
+  "devDependencies": {
+    "jQuery": "^1.7.4"
   }
 }
