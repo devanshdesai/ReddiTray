@@ -9,45 +9,36 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div id="nav" class="container-fluid text-center navbar-text">
-            ReddiTray
-            <a id="minimize" href="#">
-                <button type="button" class="btn btn-default window_buttons btn-sm"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
-            </a>
-            <a href="#" id="quit">
-                <button type="button" class="btn btn-default window_buttons btn-sm"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-            </a>
-        </div>
-    </nav>
+    <div id="main">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div id="nav" class="container-fluid text-center navbar-text">
+                ReddiTray
+                <a id="minimize" href="#">
+                    <button v-on:click="minimizeApp()" type="button" class="btn btn-default window_buttons btn-sm"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+                </a>
+                <a href="#" id="quit">
+                    <button v-on:click="quitApp()" type="button" class="btn btn-default window_buttons btn-sm"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                </a>
+            </div>
+        </nav>
 
-    <div class="container">
-        <br>
-        <br>
-        <br>
-        <div class="row">
-            <h4 class="text-center">Welcome to ReddiTray!<br>Please sign in.</h4>
-        </div>
-        <div class="row">
-            <button id="authenticate" type="button" class="btn btn-primary btn-large"><span class="glyphicon glyphicon-new-windowPrimary" aria-hidden="true"></span>Sign in to Reddit</button>
+        <div class="container">
+            <br>
+            <br>
+            <br>
+            <div class="row">
+                <h4 class="text-center">Welcome to ReddiTray!<br>Please sign in.</h4>
+            </div>
+            <div class="row">
+                <button v-on:click="authenticate()" id="authenticate" type="button" class="btn btn-primary btn-large"><span class="glyphicon glyphicon-new-windowPrimary" aria-hidden="true"></span>Sign in to Reddit</button>
+            </div>
+
         </div>
     </div>
 </body>
 
-
-<script>
-    if (typeof module === 'object') {
-        window.module = module;
-        module = undefined;
-    }
-</script>
-<script src="src/jquery-3.1.0.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="src/vue.min.js"></script>
 <script src="src/reddit.js"></script>
 <script src="src/app.js"></script>
-
-<script>
-    if (window.module) module = window.module;
-</script>
 
 </html>
