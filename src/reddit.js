@@ -1,17 +1,83 @@
 var Snoocore = require("snoocore"),
     events = require("events"),
     persist = require("node-persist"),
-    express = require("express");
+    express = require("express"),
+    jf = require("jsonfile");
 const {
     shell
 } = require("electron");
+
+persist.initSync({
+    dir: process.resourcesPath + "/persist"
+});
+
+var config = jf.readFileSync('src/config.json');
+
+var reddit = new Snoocore({
+    userAgent: "ReddiTray",
+    oauth: {
+        type: "explicit",
+        mobile: true,
+        key: config.key,
+        secret: config.secret,
+        duration: "permanent",
+        redirectUri: config.redirectUri,
+        scope: ["identity", "privatemessages"]
+    }
+});
+
+reddit.on("access_token_expired", function(responseError) {
+    var tokens = persist.getItem("tokens");
+    if (tokens.refresh !== "") {
+        reddit.refresh(tokens.refresh).then(function(refresh) {
+            var tokens = {
+                token: reddit.getAccessToken(),
+                refresh: reddit.getRefreshToken()
+            };
+            persist.setItem("tokens", tokens);
+        });
+    }
+});
+
+var servWait = function(output) {
+    var app = express();
+    var server = app.listen(1212);
+    app.get("/auth", function(req, res) {
+        output(req.query);
+        res.send("<span style='font-family: Arial; font-size:1.5em;'>Reddit authentication is complete. Please close this window.</span>");
+        app = null;
+    });
+};
+
+var signIn = function(tokens) {
+    reddit.setAccessToken(tokens.token);
+    reddit.setRefreshToken(tokens.refresh);
+};
+
+var filterMessages = function(mail) {
+    return mail.data.children.map(function(item) {
+        item = item.data;
+        if (item.body.length > 300) item.body = item.body.substring(0, 300) + "...";
+        var newitem = {
+            body: item.body,
+            unread: item.new,
+            context: "https://reddit.com" + item.context,
+            subreddit: "/r/" + item.subreddit,
+            author: item.author,
+            date: item.created_utc
+        };
+        if (!item.was_comment) newitem.subreddit = item.subject;
+        if (newitem.context === "https://reddit.com") newitem.context = "https://www.reddit.com/message/messages/" + item.id;
+        return newitem;
+    });
+};
 
 module.exports = {
     ready: new events.EventEmitter(),
     authenticate: function(output) {
         var state = Math.random();
-        var authUrl = reddit.getAuthUrl(state);
-        shell.openExternal(authUrl);
+        var auth_url = reddit.getAuthUrl(state);
+        shell.openExternal(auth_url);
         servWait(function(query) {
             if (query.state == state) {
                 reddit.auth(query.code).then(function() {
@@ -28,7 +94,7 @@ module.exports = {
             }
         });
     },
-    checkAuthentication: function(output) {
+    checkAuth: function(output) {
         var tokens = persist.getItem("tokens");
         if (tokens !== undefined && tokens.token !== "" && tokens.refresh !== "") {
             signIn(tokens);
@@ -53,9 +119,9 @@ module.exports = {
         reddit("/message/inbox").get({
             limit: limit,
             count: start
-        }).then(function(mail) {
-            //var filtered = filterMail(mail);
-            output(mail);
+        }).then(function(messages) {
+            var filtered_messages = filterMessages(messages);
+            output(filtered_messages);
         });
     },
     markAllAsRead: function(output) {
@@ -68,49 +134,6 @@ module.exports = {
             refresh: ""
         });
     }
-};
-
-persist.initSync({
-    dir: process.resourcesPath + "/persist"
-});
-
-var reddit = new Snoocore({
-    userAgent: 'test@documentation',
-    oauth: {
-        type: 'implicit',
-        mobile: true,
-        key: 'tj19dKrZ6PG5UA',
-        redirectUri: 'http://localhost:8123/auth',
-        scope: ["identity", "privatemessages"]
-    }
-});
-
-reddit.on("access_token_expired", function(responseError) {
-    var tokens = persist.getItem("tokens");
-    if (tokens.refresh !== "") {
-        reddit.refresh(tokens.refresh).then(function(refresh) {
-            var tokens = {
-                token: reddit.getAccessToken(),
-                refresh: reddit.getRefreshToken()
-            };
-            persist.setItem("tokens", tokens);
-        });
-    }
-});
-
-var servWait = function(output) {
-    var app = express();
-    var server = app.listen(8123);
-    app.get("/auth", function(req, res) {
-        output(req.query);
-        res.send("<span style='font-family: Verdana, Sans-Serif;font-size:1.5em;'>Reddit authentication is complete. Please close this window.</span>");
-        app = null;
-    });
-};
-
-var signIn = function(tokens) {
-    reddit.setAccessToken(tokens.token);
-    reddit.setRefreshToken(tokens.refresh);
 };
 
 setTimeout(function() {
