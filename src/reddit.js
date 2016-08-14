@@ -57,7 +57,7 @@ var signIn = function(tokens) {
 var filterMail = function(mail) {
     return mail.data.children.map(function(item) {
         item = item.data;
-        var date = new Date (item.created_utc),
+        var date = new Date (item.created_utc * 1000),
             date_string;
         if (item.body.length > 300) {
             item.body = item.body.substring(0, 300) + "...";
