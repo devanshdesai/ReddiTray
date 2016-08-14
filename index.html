@@ -15,8 +15,8 @@
                 <a id="refresh" href="#">
                     <button v-on:click="refreshMessages()" type="button" class="btn btn-default window_buttons btn-sm" title="Refresh your Reddit messages"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
                 </a>
-                <a id="inbox" href="https://www.reddit.com/message/inbox/">
-                    <button type="button" class="btn btn-default window_buttons btn-sm" title="Go to your Reddit inbox"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
+                <a id="inbox" href="#">
+                    <button v-on:click="openRedditInbox()" type="button" class="btn btn-default window_buttons btn-sm" title="Go to your Reddit inbox"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
                 </a>
                 ReddiTray
                 <a id="minimize" href="#">

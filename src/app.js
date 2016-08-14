@@ -121,6 +121,9 @@ var main = new Vue({
 				m.loading = false;
 			});
 		},
+        openRedditInbox: function() {
+            shell.openExternal("https://www.reddit.com/message/inbox/");
+        }
     }
 });
 
