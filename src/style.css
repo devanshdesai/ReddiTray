@@ -1,7 +1,6 @@
 body {
     padding-top: 90px;
 }
-
 #refresh {
     width: 25px;
     height: 25px;
@@ -10,7 +9,14 @@ body {
     top: 0;
     position: absolute;
 }
-
+#inbox {
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+    left: 35px;
+    top: 0;
+    position: absolute;
+}
 #quit {
     width: 25px;
     height: 25px;
@@ -19,7 +25,6 @@ body {
     top: 0;
     position: absolute;
 }
-
 #minimize {
     top: 0;
     width: 25px;
@@ -29,35 +34,55 @@ body {
     right: 50px;
     position: absolute;
 }
-
 .window_buttons {
     border-color: transparent;
     border-radius: 0px;
     background-color: transparent;
 }
-
 #authenticate {
     position: relative;
     margin-top: 10%;
     margin-left: 27.5%;
     width: 45%;
-    margin-right: 27.5%:
-    text-align: center;
+    margin-right: 27.5%: text-align: center;
 }
-
 #nav {
-    font-size: 1.5em;
+    font-size: 1.8em;
+    padding-top: 10px;
     color: orange;
 }
-
 .nav {
     background-color: #f2f2f2;
 }
-
+nav {
+    height: 85px;
+    line-height: 1.75em;
+}
 #username {
     color: #3F729B;
 }
-
 #karma {
     color: #3F729B;
+}
+.author {
+    font-weight: bold;
+    display: inline-block;
+}
+.subreddit {
+    font-weight: normal;
+    color: #ff9900;
+    font-size: 0.9em;
+    padding-top: 5px;
+    margin-left: 10px;
+    display: inline-block;
+}
+.date {
+    font-style: italic;
+    font-size: 0.9em;
+    padding-top: 5px;
+    color: #428bca;
+    display: inline-block;
+}
+::-webkit-scrollbar {
+    display: none;
 }

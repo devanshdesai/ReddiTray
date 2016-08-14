@@ -13,26 +13,53 @@
         <nav class="navbar navbar-default navbar-fixed-top">
             <div id="nav" class="container-fluid text-center navbar-text">
                 <a id="refresh" href="#">
-                    <button v-on:click="refreshMessages()" type="button" class="btn btn-default window_buttons btn-sm"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+                    <button v-on:click="refreshMessages()" type="button" class="btn btn-default window_buttons btn-sm" title="Refresh your Reddit messages"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+                </a>
+                <a id="inbox" href="https://www.reddit.com/message/inbox/">
+                    <button type="button" class="btn btn-default window_buttons btn-sm" title="Go to your Reddit inbox"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
                 </a>
                 ReddiTray
                 <a id="minimize" href="#">
-                    <button v-on:click="minimizeApp()" type="button" class="btn btn-default window_buttons btn-sm"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+                    <button v-on:click="minimizeApp()" type="button" class="btn btn-default window_buttons btn-sm" title="Minimize"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
                 </a>
                 <a href="#" id="quit">
-                    <button v-on:click="quitApp()" type="button" class="btn btn-default window_buttons btn-sm"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <button v-on:click="quitApp()" type="button" class="btn btn-default window_buttons btn-sm" title="Quit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                 </a>
                 <br>
                 <div class="col-xs-6 col-sm-12">
-                    <h5 id="username" class="text-left">SmegmaSalad</h5>
+                    <a href="#">
+                        <h5 id="username" class="text-left" v-on="click: openUserProfile()">{{user.name}}</h5>
+                    </a>
                 </div>
                 <div class="col-xs-6 col-sm-12">
-                    <h5 id="karma" class="text-right">(800, 1645)</h5>
+                    <h5 id="karma" class="text-right">({{user.karma.link}}, {{user.karma.comment}})</h5>
                 </div>
             </div>
         </nav>
 
         <div class="container">
+            <div id="mail">
+                <div id="loading" v-show="loading">
+                    <br>
+                    <br>
+                    <br> Your messages are loading.
+                </div>
+                <ul id="mail" class="list-group">
+                    <li v-repeat="mail" v-class="unread: unread" v-on="click: getContext($index)" class="list-group-item list-group-item-action">
+                        <h5 class="list-group-item-heading author">NEPwntriots</h5>
+                        <p class="list-group-item-text message_body">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        <p class="date">5 mins ago</p>
+                        <p class="subreddit text-right">/r/cscareerquestions</p>
+                    </li>
+                    <li v-repeat="mail" v-class="unread: unread" v-on="click: getContext($index)" class="list-group-item list-group-item-action">
+                        <h5 class="list-group-item-heading author">NEPwntriots</h5>
+                        <p class="list-group-item-text message_body">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        <p class="date">5 mins ago</p>
+                        <p class="subreddit text-right">/r/cscareerquestions</p>
+                    </li>
+                </ul>
+            </div>
+
             <div id="auth_gate" v-show="!authenticated">
                 <br>
                 <br>
