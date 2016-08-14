@@ -57,14 +57,20 @@ var signIn = function(tokens) {
 var filterMail = function(mail) {
     return mail.data.children.map(function(item) {
         item = item.data;
-        if (item.body.length > 300) item.body = item.body.substring(0, 300) + "...";
+        var date = new Date (item.created_utc),
+            date_string;
+        if (item.body.length > 300) {
+            item.body = item.body.substring(0, 300) + "...";
+        }
+        date_string = date.toLocaleDateString() + " " + date.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
         var newitem = {
-            body: item.body,
+            body: (item.body).replace("\n", "<br>"),
             unread: item.new,
             context: "https://reddit.com" + item.context,
             subreddit: "/r/" + item.subreddit,
+            thread: item.link_title,
             author: item.author,
-            date: item.created_utc
+            date: date_string
         };
         if (!item.was_comment) newitem.subreddit = item.subject;
         if (newitem.context === "https://reddit.com") newitem.context = "https://www.reddit.com/message/messages/" + item.id;

@@ -46,16 +46,11 @@
                 </div>
                 <ul id="mail" class="list-group">
                     <li v-repeat="mail" v-class="unread: unread" v-on="click: getContext($index)" class="list-group-item list-group-item-action">
-                        <h5 class="list-group-item-heading author">NEPwntriots</h5>
-                        <p class="list-group-item-text message_body">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                        <p class="date">5 mins ago</p>
-                        <p class="subreddit text-right">/r/cscareerquestions</p>
-                    </li>
-                    <li v-repeat="mail" v-class="unread: unread" v-on="click: getContext($index)" class="list-group-item list-group-item-action">
-                        <h5 class="list-group-item-heading author">NEPwntriots</h5>
-                        <p class="list-group-item-text message_body">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                        <p class="date">5 mins ago</p>
-                        <p class="subreddit text-right">/r/cscareerquestions</p>
+                        <h5 class="list-group-item-heading author">{{author}}</h5>
+                        <p class="thread_title">{{thread}}</p>
+                        <p class="list-group-item-text message_body">{{message}}</p>
+                        <p class="date">{{date}}</p>
+                        <p class="subreddit text-right" v-on="click: goToSubreddit($index)">{{subreddit}}</p>
                     </li>
                 </ul>
             </div>

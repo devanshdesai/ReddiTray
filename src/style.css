@@ -1,5 +1,5 @@
 body {
-    padding-top: 90px;
+    padding: 90px 0 5px 0;
 }
 #refresh {
     width: 25px;
@@ -82,6 +82,17 @@ nav {
     padding-top: 5px;
     color: #428bca;
     display: inline-block;
+}
+.thread_title {
+    font-style: italic;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #428bca;
+    display: inline-block;
+}
+.message_body {
+    font-size: 0.9em;
+    margin: -7.5px 0 2.5px 0;
 }
 ::-webkit-scrollbar {
     display: none;

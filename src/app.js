@@ -22,6 +22,9 @@ var authGate = new Vue({
                 reddit.authenticate(function(success) {
                     if (success) {
                         token.signIn();
+                        reddit.getMail(0, 10, function(mail) {
+                            console.log(mail);
+                        });
                     }
                 });
             } else {
@@ -54,7 +57,7 @@ var token = new Vue({
         signIn: function() {
             this.tokenizing = false;
             main.show();
-            main.beginLoop();
+            //main.beginLoop();
         }
     }
 });
