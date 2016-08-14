@@ -21,9 +21,6 @@ var authGate = new Vue({
             if (!force_auth) {
                 reddit.authenticate(function(success) {
                     if (success) {
-                        reddit.getMessages(0, 10, function(mail) {
-                            console.log(mail);
-                        });
                         token.signIn();
                     }
                 });
@@ -46,9 +43,9 @@ var token = new Vue({
             auth.authenticated = false;
         },
         pulse: function() {
-            this.loadstring += ".";
-            if (this.loadstring.length > 3) {
-                this.loadstring = "";
+            this.load_string += ".";
+            if (this.load_string.length > 3) {
+                this.load_string = "";
             }
             if (this.tokenizing) {
                 setTimeout(this.pulse, 500);
@@ -89,30 +86,45 @@ var main = new Vue({
 				}
 			}
         },
-        authenticate: function() {
-            reddit.authenticate(function(success) {
-                if (success) {
-                    reddit.getMessages(0, 10, function(mail) {
-                        console.log(mail);
-                    });
-                }
-            });
-
-            console.log(module.exports);
-        },
         minimizeApp: function() {
             ipc.send("minimize");
         },
         quitApp: function() {
             ipc.send("quit");
-        }
+        },
+        openUserProfile: function() {
+			shell.openExternal("https://reddit.com/u/" + this.user.name);
+		},
+        getUsername: function() {
+			var m = this;
+			reddit.getMe(function(user) {
+				m.err = false;
+				m.user = user;
+				if (user.mail) {
+					ipc.send("unread");
+					m.new_mail = true;
+				}
+				if (!user.mail) {
+					ipc.send("inbox");
+					new_mail = false;
+				}
+			});
+		},
+		getMail: function() {
+			var m = this;
+			this.loading = true;
+			reddit.getMail(0, 10, function(mail) {
+				m.mail = mail;
+				m.loading = false;
+			});
+		},
     }
 });
 
 ipc.on("hide", function() {
     main.window_open = false;
     if (main.ready) {
-        reddit.read_all_messages();
+        reddit.read_all_mail();
         main.show();
         main.prefpane = false;
     }

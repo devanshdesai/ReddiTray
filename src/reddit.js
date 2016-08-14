@@ -54,7 +54,7 @@ var signIn = function(tokens) {
     reddit.setRefreshToken(tokens.refresh);
 };
 
-var filterMessages = function(mail) {
+var filterMail = function(mail) {
     return mail.data.children.map(function(item) {
         item = item.data;
         if (item.body.length > 300) item.body = item.body.substring(0, 300) + "...";
@@ -115,13 +115,13 @@ module.exports = {
             });
         });
     },
-    getMessages: function(start, limit, output) {
+    getMail: function(start, limit, output) {
         reddit("/message/inbox").get({
             limit: limit,
             count: start
-        }).then(function(messages) {
-            var filtered_messages = filterMessages(messages);
-            output(filtered_messages);
+        }).then(function(mail) {
+            var filtered_mail = filterMail(mail);
+            output(filtered_mail);
         });
     },
     markAllAsRead: function(output) {
