@@ -113,7 +113,7 @@ nav {
     border-radius: 50%;
     width: 60px;
     height: 60px;
-    animation: spin 2s linear infinite;
+    animation: spin 1.5s linear infinite;
     text-align: center;
 }
 @keyframes spin {
