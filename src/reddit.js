@@ -111,7 +111,7 @@ module.exports = {
     },
     getUserInfo: function(output) {
         reddit("/api/v1/me").get().then(function(val) {
-            fn({
+            output({
                 name: val.name,
                 karma: {
                     link: val.link_karma,

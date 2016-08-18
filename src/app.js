@@ -22,9 +22,6 @@ var authGate = new Vue({
                 reddit.authenticate(function(success) {
                     if (success) {
                         token.signIn();
-                        reddit.getMail(0, 10, function(mail) {
-                            console.log(mail);
-                        });
                     }
                 });
             } else {
@@ -67,27 +64,31 @@ var main = new Vue({
     data: {
         ready: false,
         user: {
-            name: "null",
+            name: "",
             karma: {
-                link: "null",
-                comment: "null"
+                link: "",
+                comment: ""
             }
         },
-        messages: [],
-        new_messages: false,
+        mail: [],
+        new_mail: false,
         loading: false,
         interval: 2,
         window_open: true,
-        first_check: true
+        first_check: true,
+        button_text: "Load more"
     },
     methods: {
         show: function() {
             if (!(!this.first_check && this.window_open) || force) {
-				this.ready = true;
-				if (this.first_check) {
-					this.first_check = false;
-				}
-			}
+                this.ready = true;
+                if (this.first_check) {
+                    this.first_check = false;
+                }
+
+                this.getUsername();
+                this.getMail();
+            }
         },
         minimizeApp: function() {
             ipc.send("minimize");
@@ -96,33 +97,56 @@ var main = new Vue({
             ipc.send("quit");
         },
         openUserProfile: function() {
-			shell.openExternal("https://reddit.com/u/" + this.user.name);
-		},
+            shell.openExternal("https://reddit.com/u/" + this.user.name);
+        },
+        getContext: function(index) {
+            this.mail[index].unread = false;
+            shell.openExternal(this.mail[index].context);
+        },
         getUsername: function() {
-			var m = this;
-			reddit.getMe(function(user) {
-				m.err = false;
-				m.user = user;
-				if (user.mail) {
-					ipc.send("unread");
-					m.new_mail = true;
-				}
-				if (!user.mail) {
-					ipc.send("inbox");
-					new_mail = false;
-				}
-			});
-		},
-		getMail: function() {
-			var m = this;
-			this.loading = true;
-			reddit.getMail(0, 10, function(mail) {
-				m.mail = mail;
-				m.loading = false;
-			});
-		},
+            var m = this;
+            reddit.getUserInfo(function(user) {
+                m.err = false;
+                m.user = user;
+                if (user.mail) {
+                    ipc.send("unread");
+                    m.new_mail = true;
+                }
+                if (!user.mail) {
+                    ipc.send("inbox");
+                    new_mail = false;
+                }
+            });
+        },
+        getMail: function() {
+            var m = this;
+            this.loading = true;
+            reddit.getMail(0, 20, function(mail) {
+                m.mail = mail;
+                m.loading = false;
+            });
+        },
+        getMoreMail: function() {
+            this.button_text = "Loading";
+            var m = this;
+            reddit.getMail(0, this.mail.length + 20, function(mail) {
+                m.mail = mail;
+                m.more_status = "Load more";
+            });
+        },
         openRedditInbox: function() {
             shell.openExternal("https://www.reddit.com/message/inbox/");
+        },
+        openUserProfile: function() {
+            shell.openExternal("https://www.reddit.com/u/" + this.user.name);
+        },
+        refreshMail: function() {
+            var m = this;
+            this.loading = true;
+            reddit.getMail(0, mail.length, function(mail) {
+                m.mail = mail;
+                m.loading = false;
+            });
         }
     }
 });

@@ -97,3 +97,6 @@ nav {
 ::-webkit-scrollbar {
     display: none;
 }
+.unread {
+    border-right: 6px solid orange;
+}
