@@ -85,7 +85,6 @@ var main = new Vue({
                 if (this.first_check) {
                     this.first_check = false;
                 }
-
                 this.getUsername();
                 this.getMail();
             }
@@ -143,7 +142,7 @@ var main = new Vue({
         refreshMail: function() {
             var m = this;
             this.loading = true;
-            reddit.getMail(0, mail.length, function(mail) {
+            reddit.getMail(0, m.mail.length, function(mail) {
                 m.mail = mail;
                 m.loading = false;
             });
@@ -154,7 +153,7 @@ var main = new Vue({
 ipc.on("hide", function() {
     main.window_open = false;
     if (main.ready) {
-        reddit.read_all_mail();
+        //reddit.read_all_mail();
         main.show();
         main.prefpane = false;
     }
