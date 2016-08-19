@@ -3,6 +3,7 @@ var Snoocore = require("snoocore"),
     persist = require("node-persist"),
     express = require("express"),
     jf = require("jsonfile");
+
 const {
     shell
 } = require("electron");
@@ -65,7 +66,7 @@ var filterMail = function(mail) {
             item.body = item.body.substring(0, 300) + "...";
         }
         var newitem = {
-            body: item.body,
+            body: marked(item.body),
             unread: item.new,
             context: "https://reddit.com" + item.context,
             subreddit: "/r/" + item.subreddit,
