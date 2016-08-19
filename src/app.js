@@ -17,6 +17,7 @@ var authGate = new Vue({
         authenticateUser: function(force_auth) {
             token.tokenizing = true;
             main.authenticated = true;
+            this.auth = true;
             token.pulse();
             if (!force_auth) {
                 reddit.authenticate(function(success) {
@@ -161,6 +162,9 @@ var main = new Vue({
                 reddit.markMessageAsRead(index);
                 this.mail[index].unread = false;
             }
+        },
+        openAbout: function() {
+            shell.openExternal("http://devanshdesai.com/");
         }
     }
 });

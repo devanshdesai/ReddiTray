@@ -55,13 +55,17 @@
                         <button v-on:click="getContext($index)" type="button" class="btn btn-outline btn-primary btn-sm"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></button>
                     </li>
                 </ul>
+                <button v-on:click="getMoreMail()"  id="load_more" type="button" class="btn btn-primary btn-large"><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Load more</button>
                 <br>
                 <br>
-                <button v-on:click="getMoreMail()" v-show="" id="load_more" type="button" class="btn btn-primary btn-large">Load more</button>
+                <br>
+                <button v-on:click="openAbout()"  id="created_by" type="button" class="btn btn-outline btn-warning btn-sm">Created by Devansh Desai</button>
+                <br>
+                <br>
                 <br>
             </div>
 
-            <div id="auth_gate" v-show="!authenticated">
+            <div id="auth_gate" v-show="!auth">
                 <br>
                 <br>
                 <br>

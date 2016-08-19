@@ -103,10 +103,16 @@ nav {
 }
 #load_more {
     position: relative;
-    margin-top: 10%;
     margin-left: 27.5%;
     width: 45%;
     margin-right: 27.5%: text-align: center;
+}
+#created_by {
+    position: relative;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    text-align: center;
 }
 .loader {
     border: 10px solid #f3f3f3;
