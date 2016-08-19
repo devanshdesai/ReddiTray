@@ -45,12 +45,12 @@
                     <br>
                 </div>
                 <ul id="mail_list" class="list-group">
-                    <li v-repeat="mail" class="list-group-item list-group-item-action">
-                        <h5 class="list-group-item-heading author">{{author}}</h5>
-                        <p class="thread_title">{{thread}}</p>
-                        <p class="list-group-item-text message_body">{{body}}</p>
-                        <p class="date">{{date}}</p>
-                        <p class="subreddit text-right" v-on:click="openSubreddit($index)">{{subreddit}}</p>
+                    <li v-for="m in mail" class="list-group-item list-group-item-action">
+                        <h5 class="list-group-item-heading author">{{m.author}}</h5>
+                        <p class="thread_title">{{m.thread}}</p>
+                        <p class="list-group-item-text message_body">{{m.body}}</p>
+                        <p class="date">{{m.date}}</p>
+                        <p class="subreddit text-right" v-on:click="openSubreddit($index)">{{m.subreddit}}</p>
                     </li>
                 </ul>
                 <br>
