@@ -134,6 +134,9 @@ var main = new Vue({
                 m.more_status = "Load more";
             });
         },
+        openSubreddit: function(index) {
+            shell.openExternal("https://www.reddit.com" + this.mail[index].subreddit);
+        },
         openRedditInbox: function() {
             shell.openExternal("https://www.reddit.com/message/inbox/");
         },
