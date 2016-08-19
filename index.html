@@ -38,24 +38,27 @@
         </nav>
 
         <div class="container">
-            <div id="mail_container" v-show="authenticated">
+            <div id="mail_container">
                 <div v-show="loading">
                     <br>
                     <div class="loader center-block"></div>
                     <br>
                 </div>
-                <ul id="mail_list" class="list-group" v-show="!loading">
-                    <li v-for="m in mail" class="list-group-item list-group-item-action">
+                <ul id="mail_list" class="list-group">
+                    <li v-for="m in mail" class="list-group-item list-group-item-action" v-class="m.unread: unread">
                         <h5 class="list-group-item-heading author">{{m.author}}</h5>
                         <p class="thread_title">{{m.thread}}</p>
                         <p class="list-group-item-text message_body">{{m.body}}</p>
                         <p class="date">{{m.date}}</p>
-                        <p class="subreddit text-right" v-on:click="openSubreddit($index)">{{m.subreddit}}</p>
+                        <p class="subreddit text-right" v-on:click="openSubreddit($index)">{{m.subreddit}}</p><br>
+                        <button v-on:click="markAsRead($index)" v-show="m.unread" type="button" class="btn btn-outline btn-success btn-sm"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                        <button v-on:click="getContext($index)" type="button" class="btn btn-outline btn-primary btn-sm"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></button>
                     </li>
                 </ul>
                 <br>
                 <br>
-                <button v-on:click="getMoreMail()" v-show="!loading" id="load_more" type="button" class="btn btn-primary btn-large">Load more</button>
+                <button v-on:click="getMoreMail()" v-show="" id="load_more" type="button" class="btn btn-primary btn-large">Load more</button>
+                <br>
             </div>
 
             <div id="auth_gate" v-show="!authenticated">

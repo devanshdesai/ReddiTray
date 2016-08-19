@@ -10,7 +10,8 @@ persist.initSync({
 var authGate = new Vue({
     el: "#auth_gate",
     data: {
-        error: "Please sign in."
+        error: "Please sign in.",
+        auth: false
     },
     methods: {
         authenticateUser: function(force_auth) {
@@ -40,6 +41,7 @@ var token = new Vue({
         retryAuth: function() {
             this.tokenizing = false;
             main.authenticated = false;
+            authGate.auth = false;
         },
         pulse: function() {
             this.load_string += ".";
@@ -148,6 +150,17 @@ var main = new Vue({
                 m.mail = mail;
                 m.loading = false;
             });
+        },
+        markAsRead: function(index) {
+            if (index === null) {
+                reddit.markAllMessagesAsRead();
+                for (var i = 0; i < this.mail.length; i++) {
+                    this.mail[i].unread = false;
+                }
+            } else {
+                reddit.markMessageAsRead(index);
+                this.mail[index].unread = false;
+            }
         }
     }
 });
@@ -157,6 +170,5 @@ ipc.on("hide", function() {
     if (main.ready) {
         //reddit.read_all_mail();
         main.show();
-        main.prefpane = false;
     }
 })

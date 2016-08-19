@@ -89,10 +89,11 @@ nav {
     font-weight: bold;
     color: #428bca;
     display: inline-block;
+    margin-bottom: -10px;
 }
 .message_body {
     font-size: 0.9em;
-    margin: -7.5px 0 2.5px 0;
+    margin: 7.5px 0 2.5px 0;
 }
 ::-webkit-scrollbar {
     display: none;
@@ -123,4 +124,39 @@ nav {
     100% {
         transform: rotate(360deg);
     }
+}
+/*Bootstrap button outline override*/
+.btn-outline {
+    background-color: transparent;
+    color: inherit;
+    transition: all .5s;
+    border-radius: 50px;
+}
+
+.btn-primary.btn-outline {
+    color: #428bca;
+}
+
+.btn-success.btn-outline {
+    color: #5cb85c;
+}
+
+.btn-info.btn-outline {
+    color: #5bc0de;
+}
+
+.btn-warning.btn-outline {
+    color: #f0ad4e;
+}
+
+.btn-danger.btn-outline {
+    color: #d9534f;
+}
+
+.btn-primary.btn-outline:hover,
+.btn-success.btn-outline:hover,
+.btn-info.btn-outline:hover,
+.btn-warning.btn-outline:hover,
+.btn-danger.btn-outline:hover {
+    color: #fff;
 }

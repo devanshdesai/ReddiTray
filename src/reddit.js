@@ -71,6 +71,7 @@ var filterMail = function(mail) {
             subreddit: "/r/" + item.subreddit,
             thread: item.link_title,
             author: item.author,
+            id: item.id,
             date: date_string
         };
         if (!item.was_comment) newitem.subreddit = item.subject;
@@ -131,7 +132,12 @@ module.exports = {
             output(filtered_mail);
         });
     },
-    markAllAsRead: function(output) {
+    markMessageAsRead: function(message_id, output) {
+        reddit("/api/read_message").post({
+            id: message_id
+        }).then(output);
+    },
+    markAllMessagesAsRead: function(output) {
         reddit("/api/read_all_messages").post().then(output);
     },
     signOut: function() {
