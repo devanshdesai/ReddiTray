@@ -12,10 +12,10 @@
     <div id="main">
         <nav class="navbar navbar-default navbar-fixed-top">
             <div id="nav" class="container-fluid text-center navbar-text">
-                <a id="refresh" href="#">
+                <a id="refresh" href="#" v-show="authenticated">
                     <button v-on:click="refreshMail()" type="button" class="btn btn-default window_buttons btn-sm" title="Refresh your Reddit messages"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></button>
                 </a>
-                <a id="inbox" href="#">
+                <a id="inbox" href="#" v-show="authenticated">
                     <button v-on:click="openRedditInbox()" type="button" class="btn btn-default window_buttons btn-sm" title="Go to your Reddit inbox"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
                 </a>
                 ReddiTray
@@ -31,20 +31,20 @@
                         <h5 id="username" class="text-left" v-on:click="openUserProfile()">{{user.name}}</h5>
                     </a>
                 </div>
-                <div class="col-xs-6 col-sm-12">
-                    <h5 id="karma" class="text-right">{{user.karma.link}} · {{user.karma.comment}}</h5>
+                <div class="col-xs-6 col-sm-12" v-show="authenticated">
+                    <h5 id="karma" class="text-right">({{user.karma.link}} · {{user.karma.comment}})</h5>
                 </div>
             </div>
         </nav>
 
         <div class="container">
-            <div id="mail_container">
+            <div id="mail_container" v-show="authenticated">
                 <div v-show="loading">
                     <br>
                     <div class="loader center-block"></div>
                     <br>
                 </div>
-                <ul id="mail_list" class="list-group">
+                <ul id="mail_list" class="list-group" v-show="!loading">
                     <li v-for="m in mail" class="list-group-item list-group-item-action">
                         <h5 class="list-group-item-heading author">{{m.author}}</h5>
                         <p class="thread_title">{{m.thread}}</p>
@@ -55,7 +55,7 @@
                 </ul>
                 <br>
                 <br>
-                <button v-on:click="" id="load_more" type="button" class="btn btn-primary btn-large">Load more</button>
+                <button v-on:click="getMoreMail()" v-show="!loading" id="load_more" type="button" class="btn btn-primary btn-large">Load more</button>
             </div>
 
             <div id="auth_gate" v-show="!authenticated">

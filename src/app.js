@@ -10,13 +10,12 @@ persist.initSync({
 var authGate = new Vue({
     el: "#auth_gate",
     data: {
-        authenticated: false,
         error: "Please sign in."
     },
     methods: {
         authenticateUser: function(force_auth) {
             token.tokenizing = true;
-            this.authenticated = true;
+            main.authenticated = true;
             token.pulse();
             if (!force_auth) {
                 reddit.authenticate(function(success) {
@@ -40,7 +39,7 @@ var token = new Vue({
     methods: {
         retryAuth: function() {
             this.tokenizing = false;
-            auth.authenticated = false;
+            main.authenticated = false;
         },
         pulse: function() {
             this.load_string += ".";
@@ -63,6 +62,7 @@ var main = new Vue({
     el: "#main",
     data: {
         ready: false,
+        authenticated: false,
         user: {
             name: "",
             karma: {
@@ -75,8 +75,7 @@ var main = new Vue({
         loading: false,
         interval: 2,
         window_open: true,
-        first_check: true,
-        button_text: "Load more"
+        first_check: true
     },
     methods: {
         show: function() {
@@ -123,15 +122,14 @@ var main = new Vue({
             reddit.getMail(0, 20, function(mail) {
                 m.mail = mail;
                 m.loading = false;
-                console.log(mail);
             });
         },
         getMoreMail: function() {
-            this.button_text = "Loading";
             var m = this;
+            this.loading = true;
             reddit.getMail(0, this.mail.length + 20, function(mail) {
                 m.mail = mail;
-                m.more_status = "Load more";
+                m.loading = false;
             });
         },
         openSubreddit: function(index) {

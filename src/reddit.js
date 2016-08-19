@@ -65,7 +65,7 @@ var filterMail = function(mail) {
             item.body = item.body.substring(0, 300) + "...";
         }
         var newitem = {
-            body: (item.body).replace("\n", "<br>"),
+            body: item.body,
             unread: item.new,
             context: "https://reddit.com" + item.context,
             subreddit: "/r/" + item.subreddit,
