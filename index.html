@@ -13,7 +13,7 @@
         <nav class="navbar navbar-default navbar-fixed-top">
             <div id="nav" class="container-fluid text-center navbar-text">
                 <a id="refresh" href="#">
-                    <button v-on:click="refreshMail()" type="button" class="btn btn-default window_buttons btn-sm" title="Refresh your Reddit messages"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+                    <button v-on:click="refreshMail()" type="button" class="btn btn-default window_buttons btn-sm" title="Refresh your Reddit messages"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></button>
                 </a>
                 <a id="inbox" href="#">
                     <button v-on:click="openRedditInbox()" type="button" class="btn btn-default window_buttons btn-sm" title="Go to your Reddit inbox"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
@@ -38,24 +38,24 @@
         </nav>
 
         <div class="container">
-            <div id="mail" v-show="authenticated">
-                <div id="loading" v-show="loading">
+            <div id="mail_container">
+                <div v-show="loading">
                     <br>
+                    <div class="loader center-block"></div>
                     <br>
-                    <br> Your messages are loading.
                 </div>
                 <ul id="mail_list" class="list-group">
-                    <li v-repeat="mail" v-class="unread: unread" v-on:click="getContext($index)" class="list-group-item list-group-item-action">
-                        <h5 class="list-group-item-heading author">{{author}}</h5>
-                        <p class="thread_title">{{thread}}</p>
-                        <p class="list-group-item-text message_body">{{message}}</p>
-                        <p class="date">{{date}}</p>
-                        <p class="subreddit text-right" v-on="click: goToSubreddit($index)">{{subreddit}}</p>
+                    <li v-repeat="m in mail" class="list-group-item list-group-item-action">
+                        <h5 class="list-group-item-heading author">{{m.author}}</h5>
+                        <p class="thread_title">{{m.thread}}</p>
+                        <p class="list-group-item-text message_body">{{m.body}}</p>
+                        <p class="date">{{m.date}}</p>
+                        <p class="subreddit text-right" v-on:click="goToSubreddit($index)">{{m.subreddit}}</p>
                     </li>
                 </ul>
                 <br>
                 <br>
-                <button v-on:click="" id="authenticate" type="button" class="btn btn-primary btn-large">Load more</button>
+                <button v-on:click="" id="load_more" type="button" class="btn btn-primary btn-large">Load more</button>
             </div>
 
             <div id="auth_gate" v-show="!authenticated">
@@ -74,6 +74,7 @@
 </body>
 
 <script src="src/vue.min.js"></script>
+<script src="src/moment.js"></script>
 <script src="src/reddit.js"></script>
 <script src="src/app.js"></script>
 

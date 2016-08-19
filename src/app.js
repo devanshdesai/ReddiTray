@@ -113,7 +113,7 @@ var main = new Vue({
                 }
                 if (!user.mail) {
                     ipc.send("inbox");
-                    new_mail = false;
+                    m.new_mail = false;
                 }
             });
         },
@@ -123,6 +123,7 @@ var main = new Vue({
             reddit.getMail(0, 20, function(mail) {
                 m.mail = mail;
                 m.loading = false;
+                console.log(mail);
             });
         },
         getMoreMail: function() {

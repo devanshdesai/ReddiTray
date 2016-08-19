@@ -57,12 +57,13 @@ var signIn = function(tokens) {
 var filterMail = function(mail) {
     return mail.data.children.map(function(item) {
         item = item.data;
-        var date = new Date (item.created_utc * 1000),
+        var date = new Date (0),
             date_string;
+        date.setUTCSeconds(item.created_utc);
+        date_string = moment(date).fromNow();
         if (item.body.length > 300) {
             item.body = item.body.substring(0, 300) + "...";
         }
-        date_string = date.toLocaleDateString() + " " + date.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
         var newitem = {
             body: (item.body).replace("\n", "<br>"),
             unread: item.new,
