@@ -70,7 +70,7 @@ var main = new Vue({
                 comment: ""
             }
         },
-        mail: [],
+        mail: [{}],
         new_mail: false,
         loading: false,
         interval: 2,
