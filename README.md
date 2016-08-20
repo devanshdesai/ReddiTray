@@ -20,11 +20,6 @@ ReddiTray is built on Github Electron and uses Vue.js, the Reddit API, Snoocore,
 The application is compatible with Windows, Linux, and macOS.
 
 
-### Screenshots
-
-
-
-
 ### License
 MIT License
 
