@@ -38,13 +38,13 @@
         </nav>
 
         <div class="container">
-            <div id="mail_container">
-                <div v-show="loading">
+            <div id="mail_container" v-show="authenticated">
+                <div v-show="loading" v-show="loading">
                     <br>
                     <div class="loader center-block"></div>
                     <br>
                 </div>
-                <ul id="mail_list" class="list-group">
+                <ul id="mail_list" class="list-group" v-show="!loading">
                     <li v-for="m in mail" class="list-group-item list-group-item-action" v-bind:class="{'unread': m.unread}">
                         <h5 class="list-group-item-heading author">{{m.author}}</h5>
                         <p class="thread_title">{{m.thread}}</p>
@@ -56,13 +56,6 @@
                     </li>
                 </ul>
                 <button v-on:click="getMoreMail()"  id="load_more" type="button" class="btn btn-primary btn-large"><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Load more</button>
-                <br>
-                <br>
-                <br>
-                <button v-on:click="openAbout()"  id="created_by" type="button" class="btn btn-outline btn-warning btn-sm">Created by Devansh Desai</button>
-                <br>
-                <br>
-                <br>
             </div>
 
             <div id="auth_gate" v-show="!auth">
@@ -76,6 +69,13 @@
                     <button v-on:click="authenticateUser()" id="authenticate" type="button" class="btn btn-primary btn-large">Sign in to Reddit</button>
                 </div>
             </div>
+            <br>
+            <br>
+            <br>
+            <button v-on:click="openAbout()"  id="created_by" type="button" class="btn btn-outline btn-warning btn-sm">Created by Devansh Desai</button>
+            <br>
+            <br>
+            <br>
         </div>
     </div>
 </body>
