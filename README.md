@@ -24,7 +24,6 @@ The application is compatible with Windows, Linux, and macOS.
 <img src="https://raw.githubusercontent.com/devanshdesai/ReddiTray/master/src/img/screenshot02.png" width="300px">
 
 
-
 ### License
 MIT License
 
