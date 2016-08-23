@@ -9,7 +9,7 @@ ReddiTray is a desktop tray application that notifies you when you have unread R
 
 
 ### Motivation
-The motivation for this project was to primarily to explore Github Electron and Node JS. To me, the idea of creating desktop applications using web technologies is an absolute game-changer. The desktop application space is much easier to develop in if you simply know HTML, CSS, and JavaScript.
+The motivation for this project was to primarily to explore Github Electron and Node.js. To me, the idea of creating desktop applications using web technologies is an absolute game-changer. The desktop application space is much easier to develop in if you simply know HTML, CSS, and JavaScript.
 
 
 ### Technologies
