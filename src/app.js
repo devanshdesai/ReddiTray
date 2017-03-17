@@ -101,8 +101,9 @@ var main = new Vue({
             shell.openExternal("https://reddit.com/u/" + this.user.name);
         },
         getContext: function(index) {
-            this.mail[index].unread = false;
-            shell.openExternal(this.mail[index].context);
+            var m = this;
+            m.mail[index].unread = false;
+            shell.openExternal(m.mail[index].context);
         },
         getUsername: function() {
             var m = this;
@@ -112,16 +113,18 @@ var main = new Vue({
                 if (user.mail) {
                     ipc.send("unread");
                     m.new_mail = true;
+                    ipc.send("orange_icon");
                 }
                 if (!user.mail) {
                     ipc.send("inbox");
                     m.new_mail = false;
+                    ipc.send("white_icon");
                 }
             });
         },
         getMail: function() {
             var m = this;
-            this.loading = true;
+            m.loading = true;
             reddit.getMail(0, 20, function(mail) {
                 m.mail = mail;
                 m.loading = false;
@@ -129,8 +132,8 @@ var main = new Vue({
         },
         getMoreMail: function() {
             var m = this;
-            this.loading = true;
-            reddit.getMail(0, this.mail.length + 20, function(mail) {
+            m.loading = true;
+            reddit.getMail(0, m.mail.length + 20, function(mail) {
                 m.mail = mail;
                 m.loading = false;
             });
@@ -146,22 +149,43 @@ var main = new Vue({
         },
         refreshMail: function() {
             var m = this;
-            this.loading = true;
+            m.loading = true;
             reddit.getMail(0, m.mail.length, function(mail) {
                 m.mail = mail;
                 m.loading = false;
             });
         },
-        markAsRead: function(index) {
-            if (index === null) {
+        markAsRead: function(index, message_id) {
+            var m = this;
+            if (index == null) {
                 reddit.markAllMessagesAsRead();
-                for (var i = 0; i < this.mail.length; i++) {
-                    this.mail[i].unread = false;
+                for (var i = 0; i < m.mail.length; i++) {
+                    m.mail[i].unread = false;
                 }
+                m.new_mail = false;
             } else {
-                reddit.markMessageAsRead(index);
-                this.mail[index].unread = false;
+                reddit.markMessageAsRead(m.mail[index].kind + "_" + message_id);
+                m.mail[index].unread = false;
+                var unread_left = false;
+                for (var i = 0; i < m.mail.length; i++) {
+                    if (m.mail[i].unread === true) {
+                        unread_left = true;
+                    }
+                }
+                if (unread_left === false) {
+                    m.new_mail === true;
+                }
+
             }
+            if (m.new_mail === false) {
+                ipc.send("white_icon");
+            }
+        },
+        markAsUnread: function(index, message_id) {
+            var m = this;
+            reddit.markMessageAsUnread(m.mail[index].kind + "_" + message_id);
+            m.mail[index].unread = true;
+            ipc.send("orange_icon");
         },
         openAbout: function() {
             shell.openExternal("http://devanshdesai.com/");

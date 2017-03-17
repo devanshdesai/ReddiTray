@@ -1,3 +1,15 @@
+@font-face {
+	font-family: 'Circular';
+	src: url('CircularStd-Book.eot');
+	src: url('CircularStd-Book.eot?#iefix') format('embedded-opentype'),
+		url('CircularStd-Book.woff') format('woff'),
+		url('CircularStd-Book.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+* {
+    font-family: 'Circular', Arial;
+}
 body {
     padding: 90px 0 5px 0;
 }
@@ -5,7 +17,7 @@ body {
     width: 25px;
     height: 25px;
     font-size: 20px;
-    left: 2.5px;
+    left: 0px;
     top: 0;
     position: absolute;
 }
@@ -13,7 +25,7 @@ body {
     width: 25px;
     height: 25px;
     font-size: 20px;
-    left: 35px;
+    left: 32.5px;
     top: 0;
     position: absolute;
 }
@@ -21,7 +33,7 @@ body {
     width: 25px;
     height: 25px;
     font-size: 20px;
-    right: 12.5px;
+    right: 10px;
     top: 0;
     position: absolute;
 }
@@ -31,7 +43,7 @@ body {
     height: 25px;
     font-size: 20px;
     margin-right: -2px;
-    right: 50px;
+    right: 47.5px;
     position: absolute;
 }
 .window_buttons {
@@ -47,7 +59,7 @@ body {
     margin-right: 27.5%: text-align: center;
 }
 #nav {
-    font-size: 1.8em;
+    font-size: 30px;
     padding-top: 10px;
     color: orange;
 }
@@ -64,42 +76,41 @@ nav {
 #karma {
     color: #3F729B;
 }
+#all_read {
+	width: 60%;
+	margin: 7.5px 20% 10px 20%;
+}
 .author {
     font-weight: bold;
     display: inline-block;
 }
 .subreddit {
     font-weight: normal;
-    color: #ff9900;
-    font-size: 0.9em;
+    color: #FF9900;
     padding-top: 5px;
     margin-left: 10px;
     display: inline-block;
 }
 .date {
     font-style: italic;
-    font-size: 0.9em;
     padding-top: 5px;
     color: #428bca;
     display: inline-block;
 }
 .thread_title {
-    font-style: italic;
-    font-size: 0.9em;
     font-weight: bold;
     color: #428bca;
     display: inline-block;
     margin-bottom: -10px;
 }
 .message_body {
-    font-size: 0.9em;
     margin: 7.5px 0 2.5px 0;
 }
 ::-webkit-scrollbar {
     display: none;
 }
 .unread {
-    border-right: 6px solid #ff9900;
+    border-right: 6px solid #FF9900;
 }
 #load_more {
     position: relative;
@@ -109,14 +120,22 @@ nav {
 }
 #created_by {
     position: relative;
-    width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
+	-webkit-transition: color 0.5s;
+    transition: color 0.5s;
+}
+#created_by:hover {
+	cursor: pointer;
+	color: #FF9900;
+	-webkit-transition: color 0.5s;
+    transition: color 0.5s;
 }
 .loader {
     border: 10px solid #f3f3f3;
-    border-top: 10px solid #ff9900;
+    border-top: 10px solid #FF9900;
     border-radius: 50%;
     width: 60px;
     height: 60px;
@@ -136,7 +155,7 @@ nav {
     background-color: transparent;
     color: inherit;
     transition: all .5s;
-    border-radius: 50px;
+    border-radius: 15px;
 }
 
 .btn-primary.btn-outline {

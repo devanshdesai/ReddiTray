@@ -39,19 +39,21 @@
 
         <div class="container">
             <div id="mail_container" v-show="authenticated">
-                <div v-show="loading" v-show="loading">
+                <div v-show="loading">
                     <br>
                     <div class="loader center-block"></div>
                     <br>
                 </div>
                 <ul id="mail_list" class="list-group" v-show="!loading">
+                    <button v-on:click="markAsRead()" type="button" class="btn btn-outline btn-success btn-sm center" id="all_read"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;&nbsp;Mark all as read</button>
                     <li v-for="m in mail" class="list-group-item list-group-item-action" v-bind:class="{'unread': m.unread}">
                         <h5 class="list-group-item-heading author">{{m.author}}</h5>
                         <p class="thread_title">{{m.thread}}</p>
                         <p class="list-group-item-text message_body">{{{m.body}}}</p>
                         <p class="date">{{m.date}}</p>
                         <p class="subreddit text-right" v-on:click="openSubreddit($index)">{{m.subreddit}}</p><br>
-                        <button v-on:click="markAsRead($index)" v-show="m.unread" type="button" class="btn btn-outline btn-success btn-sm"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                        <button v-on:click="markAsRead($index, m.id)" v-show="m.unread" type="button" class="btn btn-outline btn-success btn-sm"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                        <button v-on:click="markAsUnread($index, m.id)" v-show="!m.unread" type="button" class="btn btn-outline btn-danger btn-sm"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
                         <button v-on:click="getContext($index)" type="button" class="btn btn-outline btn-primary btn-sm"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></button>
                     </li>
                 </ul>
@@ -72,7 +74,7 @@
             <br>
             <br>
             <br>
-            <button v-on:click="openAbout()"  id="created_by" type="button" class="btn btn-outline btn-warning btn-sm">Created by Devansh Desai</button>
+            <div v-on:click="openAbout()"  id="created_by" type="button">Created by Devansh Desai</div>
             <br>
             <br>
             <br>

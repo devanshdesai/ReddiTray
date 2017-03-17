@@ -9,7 +9,7 @@ var menubar = require('menubar'),
 		width: 300,
 		height: 500,
 		tooltip: "You have 0 unread messages.",
-		icon: "./src/img/default.png"
+		icon: "ReddiTray/src/img/default@2x.png"
 	}),
 	ipc = require("electron").ipcMain;
 
@@ -24,6 +24,14 @@ mb.on('ready', function ready() {
 		role: 'quit'
 	}, ]);
 	tray.setContextMenu(contextMenu);
+});
+
+ipc.on("white_icon", function() {
+	mb.icon = "ReddiTray/src/img/default@2x.png";
+});
+
+ipc.on("orange_icon", function() {
+	mb.icon = "ReddiTray/src/img/new_notif@2x.png";
 });
 
 ipc.on("quit", function() {

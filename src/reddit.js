@@ -12,7 +12,7 @@ persist.initSync({
     dir: process.resourcesPath + "/persist"
 });
 
-var config = jf.readFileSync('src/config.json');
+var config = jf.readFileSync('ReddiTray/src/config.json');
 
 var reddit = new Snoocore({
     userAgent: "ReddiTray",
@@ -57,26 +57,30 @@ var signIn = function(tokens) {
 
 var filterMail = function(mail) {
     return mail.data.children.map(function(item) {
-        item = item.data;
         var date = new Date (0),
             date_string;
-        date.setUTCSeconds(item.created_utc);
+        date.setUTCSeconds(item.data.created_utc);
         date_string = moment(date).fromNow();
-        if (item.body.length > 300) {
-            item.body = item.body.substring(0, 300) + "...";
+        if (item.data.body.length > 300) {
+            item.data.body = item.data.body.substring(0, 300) + "...";
         }
         var newitem = {
-            body: marked(item.body),
-            unread: item.new,
-            context: "https://reddit.com" + item.context,
-            subreddit: "/r/" + item.subreddit,
-            thread: item.link_title,
-            author: item.author,
-            id: item.id,
+            kind: item.kind,
+            body: marked(item.data.body),
+            unread: item.data.new,
+            context: "https://reddit.com" + item.data.context,
+            subreddit: "/r/" + item.data.subreddit,
+            thread: item.data.link_title,
+            author: item.data.author,
+            id: item.data.id,
             date: date_string
         };
-        if (!item.was_comment) newitem.subreddit = item.subject;
-        if (newitem.context === "https://reddit.com") newitem.context = "https://www.reddit.com/message/messages/" + item.id;
+        if (!item.data.was_comment) {
+            newitem.subreddit = item.data.subject;
+        }
+        if (newitem.context === "https://reddit.com") {
+            newitem.context = "https://www.reddit.com/message/messages/" + item.data.id;
+        }
         return newitem;
     });
 };
@@ -135,6 +139,11 @@ module.exports = {
     },
     markMessageAsRead: function(message_id, output) {
         reddit("/api/read_message").post({
+            id: message_id
+        }).then(output);
+    },
+    markMessageAsUnread: function(message_id, output) {
+        reddit("/api/unread_message").post({
             id: message_id
         }).then(output);
     },
